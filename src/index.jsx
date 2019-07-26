@@ -146,6 +146,11 @@ class Form extends Component {
                         values={children}
                         event={event}
                     />
+            case 2: 
+                return <Payment 
+                    
+                    />
+
         }
 
         return (
@@ -188,5 +193,8 @@ function Confirmation({ prevStep, nextStep, values }) {
     );
 }
 
+function Payment() {
+    return <div>Testing!!!</div>
+}
 const root = document.querySelector('#root');
 ReactDOM.render(<App />, root);
