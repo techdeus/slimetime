@@ -6,7 +6,7 @@ const SRC_DIR = path.join(__dirname, '/src');
 const DIST_DIR = path.join(__dirname, '/public');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   context: SRC_DIR,
   entry: ['@babel/polyfill', './index.jsx'],
   output: {
@@ -17,7 +17,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('production'),
       },
     }),
     new CompressionPlugin({

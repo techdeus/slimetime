@@ -194,7 +194,7 @@ function Confirmation({ prevStep, nextStep, values }) {
 }
 
 function Payment() {
-    return <div>Testing!!!</div>
+    return <div>Testing this shit!!!</div>
 }
 const root = document.querySelector('#root');
 ReactDOM.render(<App />, root);
