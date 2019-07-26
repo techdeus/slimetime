@@ -8,7 +8,6 @@ const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3008;
-const hostName = '127.0.0.1';
 const db = require('./database/models');
 
 const init = async () => {
@@ -47,6 +46,6 @@ app.get('/getEventData', async (req, res) => {
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 
-app.listen(port, hostName, () => {
+app.listen(port, () => {
     console.log(`The server is listening on Port ${port}`)
 });
