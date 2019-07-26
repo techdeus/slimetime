@@ -1,11 +1,21 @@
 * {
     box-sizing: border-box;
+    font-family: 'Electrolize', sans-serif;
 }
 
 *:focus {
     outline: none;
 }
 
+:root {
+    --primary-font-type: 'Electrolize', sans-serif;
+    --secondary-font-type: 'Butcherman', cursive;
+    --primary-color: #a502e7;
+    --secondary-color: #0fbae5;
+    --alternate-color: #f37ba9;
+    --alternate-second-color: #288358;
+    --alternate-shade-color: #6fd42f;
+}
 body {
     margin: 0;
     padding: 0;
@@ -15,6 +25,7 @@ body {
 
 h2, h4 {
     text-transform: capitalize;
+    padding: 25px 0;
 }
 
 label {
@@ -34,6 +45,7 @@ input[type="text"] {
 .fas {
     padding: 10px 0 0 0;
 }
+
 .container {
     display: flex;
     justify-content: center;
@@ -82,19 +94,20 @@ button {
     align-items: center;
     margin: 0 0 10px 0;
     border-radius: 10px;
-    background-color: rgba(212, 209, 209, 0.815);
+    background-color: var(--alternate-color);
     opacity: 0.9;
     padding: 20px;
 
 }
 .banner {
+    font-family: 'Electrolize', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: auto;
     width: 100%;
-    background: purple;
+    background: var(--primary-color);
     opacity: 0.5;
     color: white;
     padding: 10px 0;
@@ -103,16 +116,20 @@ button {
 }
 
 .bannerName {
+    font-family: 'Butcherman', cursive;
     font-size: 44px;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: capitalize;
     text-align: center;
     padding: 0 20px 10px;
+    word-spacing: 10px;
 }
 
 .bannerDate {
     font-size: 24px;
     padding: 0 20px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .bannerTime {
@@ -129,17 +146,14 @@ button {
     word-spacing: 5px;
     padding: 10px 20px 10px;
     width: 100%;
-    background-color: yellow;
+    background-color: #0fbae5;
     text-align: center;
     color: black;
 }
 
 .bannerCost > span {
-    font-size: 36px;
+    font-size: 28px;
     letter-spacing: 5px;
-}
-.bannerCost > .price {
-    
 }
 
 .addChild {
@@ -160,11 +174,11 @@ button {
 }
 
 .removeChild {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .removeChild > i {
-    color: tomato;
+    color: darkred;
     padding: 10px;
     
 }
@@ -202,7 +216,7 @@ button {
     color: black;
 }
 .nextStep {
-    background: purple;
+    background: var(--primary-color);
     opacity: 0.5;
     border-radius: 50%;
     padding: 25px;
@@ -217,7 +231,7 @@ button {
 }
 
 .prevStep {
-    background: purple;
+    background: var(--primary-color);
     opacity: 0.5;
     border-radius: 50%;
     padding: 25px;
@@ -230,19 +244,31 @@ button {
 .prevStep:hover > i {
     color: tomato;
 }
+
+.confWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
 .confContainer {
     background: #fff;
-    width: 100%;
+    width: 90%;
     border-radius: 3px;
     min-height: 50px;
+    box-shadow: #e4e0e0 5px 5px;
 }
 .childContainer {
+    word-spacing: 5px;
+    padding: 10px 0;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-bottom: 10px;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    letter-spacing: 5px;
     font-size: 18px;
 }
 .steps {
@@ -255,9 +281,11 @@ button {
 }
 .confName {
     padding-left: 10px;
+    text-align: right;
 }
 .confAge {
     padding-left: 10px;
+    text-align: right;
 }
 
 .flyer {
@@ -287,11 +315,12 @@ button {
 @media (min-width: 1000px) {
     .formWrap {
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: center;
         flex-wrap: wrap;
     }
     .formContainer {
         width: 30%;
+        margin: 10px 10px;
     }
     .flyer {
         background: url('./bg_flyer.jpg') no-repeat;
@@ -303,5 +332,14 @@ button {
         top: 26px;
         border-radius: 10px;
         z-index: 1001;
+    }
+    .addChild {
+        width: 100%;
+    }
+    .confContainer {
+        width: 50%;
+    }
+    .childContainer {
+        justify-content: flex-start;
     }
 }

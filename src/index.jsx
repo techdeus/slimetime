@@ -63,7 +63,7 @@ class Form extends Component {
         super(props);
         this.state = {
             step: 0,
-            children: [{ name: ' ', age: ' ' }],
+            children: [{ name: '', age: '' }],
             parent: {
                 name: '',
                 phonenumber: '',
@@ -172,8 +172,8 @@ class Form extends Component {
 
 function Confirmation({ prevStep, nextStep, values }) {
     return (
-        <div>
-            <h2>Is all the Children's Information Correct?</h2>
+        <div className="confWrapper">
+            <h2>Is the Information Correct?</h2>
             <div className="confContainer">
             {
                 values.map((el, i) => (
