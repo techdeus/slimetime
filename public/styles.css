@@ -1,0 +1,307 @@
+* {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff calc(50%) 0% url('./bg_slime.png') no-repeat;
+    font-size: 16px;
+}
+
+h2, h4 {
+    text-transform: capitalize;
+}
+
+label {
+    padding: 10px 0;
+    font-size: 18px;
+}
+
+input[type="text"] {
+    height: 50px;
+    width: 100%;
+    font-size: 22px;
+    text-align: center;
+    color: black;
+    border-radius: 3px;
+    border: none;
+}
+.fas {
+    padding: 10px 0 0 0;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.primary {
+
+}
+
+.secondary {
+
+}
+
+.formWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 10px 0;
+    border-radius: 10px;
+    background-color: rgba(212, 209, 209, 0.815);
+    opacity: 0.9;
+    padding: 20px;
+
+}
+.banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    background: purple;
+    opacity: 0.5;
+    color: white;
+    padding: 10px 0;
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.bannerName {
+    font-size: 44px;
+    font-weight: 400;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 0 20px 10px;
+}
+
+.bannerDate {
+    font-size: 24px;
+    padding: 0 20px 10px;
+}
+
+.bannerTime {
+    font-size: 18px;
+    padding: 0 20px 10px;
+}
+
+.bannerAddress {
+    font-size: 14px;
+    padding: 0 20px 10px;
+}
+
+.bannerCost {
+    word-spacing: 5px;
+    padding: 10px 20px 10px;
+    width: 100%;
+    background-color: yellow;
+    text-align: center;
+    color: black;
+}
+
+.bannerCost > span {
+    font-size: 36px;
+    letter-spacing: 5px;
+}
+.bannerCost > .price {
+    
+}
+
+.addChild {
+    margin-top: 10px;
+    align-self: flex-end;
+    padding-right: 10px;
+}
+
+.addChild:hover > i {
+   color: white; 
+}
+
+.addChild > i { 
+    color: purple;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: grey;
+}
+
+.removeChild {
+    margin-top: 5px;
+}
+
+.removeChild > i {
+    color: tomato;
+    padding: 10px;
+    
+}
+.removeChild:hover {
+    background: #fff;
+    border-radius: 10px;
+}
+
+.formDetails {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #fff;
+    width: 100%;
+    margin: 25px 0;
+    font-size: 24px;
+    opacity: 0.8;
+}
+
+.childrenCount {
+    color:green;
+}
+
+.childrenCost {
+    color: green;
+}
+
+.childrenCount > .underline {
+    text-decoration: underline;
+    color: black;
+}
+
+.childrenCost > .underline {
+    text-decoration: underline;
+    color: black;
+}
+.nextStep {
+    background: purple;
+    opacity: 0.5;
+    border-radius: 50%;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+.nextStep > i {
+    color: white;
+}
+.nextStep:hover > i {
+    color: green;
+}
+
+.prevStep {
+    background: purple;
+    opacity: 0.5;
+    border-radius: 50%;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+.prevStep > i {
+    color: white;
+}
+.prevStep:hover > i {
+    color: tomato;
+}
+.confContainer {
+    background: #fff;
+    width: 100%;
+    border-radius: 3px;
+    min-height: 50px;
+}
+.childContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.steps {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.confTitle {
+    padding-left: 10px;
+}
+.confName {
+    padding-left: 10px;
+}
+.confAge {
+    padding-left: 10px;
+}
+
+.flyer {
+    background: url('./bg_flyer.jpg') no-repeat;
+    background-size: cover;
+    height: 400px;
+    width: 400px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+}
+
+.footerWrapper {
+    color: #333;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    align-self: flex-end;
+    letter-spacing: 5px;
+    height: auto;
+    background: transparent;
+    width: 100%;
+    text-transform: capitalize;
+    background-color: rgb(214, 209, 209);
+    opacity: 0.5;
+}
+
+@media (min-width: 1000px) {
+    .formWrap {
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    .formContainer {
+        width: 30%;
+    }
+    .flyer {
+        background: url('./bg_flyer.jpg') no-repeat;
+        background-size: cover;
+        height: 200px;
+        width: 200px;
+        position: fixed;
+        right: 13px;
+        top: 26px;
+        border-radius: 10px;
+        z-index: 1001;
+    }
+}
