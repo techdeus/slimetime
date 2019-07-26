@@ -63,3 +63,6 @@ typings/
 # ignore bundles
 bundle.js
 bundle.js.gz
+
+# ignore security
+*.pem
