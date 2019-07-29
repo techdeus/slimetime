@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Moment from 'moment';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import CheckoutForm from './checkout';
+import PropTypes from 'prop-types';
 
 class App extends Component {
     state = {
@@ -47,8 +50,20 @@ function Banner({ event }) {
 }
 
 function Flyer() {
-    return <div className="flyer"/>
+    return <a href="/"><div className="flyer"></div></a>
 }
+
+const loaderStyle = {
+    color: '#f37ba9',
+};
+
+export default function Loader() {
+   return  <div className="fa-3x" style={loaderStyle}><i className="fas fa-spinner fa-spin"></i></div>
+}
+
+Loader.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+};
 
 function Footer() {
     return (
@@ -63,12 +78,7 @@ class Form extends Component {
         super(props);
         this.state = {
             step: 0,
-            children: [{ name: '', age: '' }],
-            parent: {
-                name: '',
-                phonenumber: '',
-                email: '',
-            },
+            children: [{ name: '', age: '', error: '' }],
             cost: 15,
             totalCost: null,
         }
@@ -77,6 +87,7 @@ class Form extends Component {
         this.prevStep = this.prevStep.bind(this);
         this.addClick = this.addClick.bind(this);
         this.calculateTotalCost = this.calculateTotalCost.bind(this);
+        this.validateForm = this.validateForm.bind(this);
     }
     
 
@@ -89,6 +100,9 @@ class Form extends Component {
                 <input id="name" name="name" type="text" placeholder="Enter name here..." value={el.name} onChange={this.handleChange.bind(this,i)} required />
                 <label htmlFor="age">Child's Age</label>
                 <input id="age" name="age" type="text" placeholder="Enter age here..." value={el.age} onChange={this.handleChange.bind(this,i)} required />
+                { 
+                    el.error.length > 0 ? <div className="errorMessage">{el.error}</div> : <div className="empty" />
+                }
                 <button className="removeChild" onClick={this.removeClick.bind(this,i)}><i class="fas fa-trash fa-2x"></i></button>
             </div>
         ));
@@ -96,10 +110,14 @@ class Form extends Component {
     
     nextStep = () => {
         const { step } = this.state;
-        this.setState({
-            step: step + 1,
-        });
-        this.calculateTotalCost();
+        if (this.validateForm()) {
+            this.setState({
+                step: step + 1,
+            });
+            this.calculateTotalCost();
+        } else {
+            return false;
+        }
     }
 
     calculateTotalCost = () => {
@@ -118,7 +136,7 @@ class Form extends Component {
 
     addClick() {
         this.setState(prevState => ({
-            children: [...prevState.children, { name: '', age: '' }]
+            children: [...prevState.children, { name: '', age: '', error: '' }]
         }));
     }
 
@@ -135,8 +153,29 @@ class Form extends Component {
         this.setState({ children });
     }
 
+    validateForm() {
+        const { children } = this.state;
+        let isValid = true;
+        children.forEach((el, i) => {
+            if (el.name.length <= 2) {
+                let currChildren = [...this.state.children];
+                currChildren[i] = {...currChildren[i], error: 'Error: Enter your child\'s name'};
+                isValid = false;
+                this.setState({ children: currChildren });
+                return isValid;
+            } else if (el.age === '' || typeof parseInt(el.age) !== 'number') {
+                let currChildren = [...this.state.children];
+                currChildren[i] = {...currChildren[i], error: 'Error: Enter your child\'s Age (Using 0-9)'};
+                isValid = false;
+                this.setState({ children: currChildren });
+                return isValid;
+            }
+        });
+
+        return isValid;
+    }
     render() {
-        const { step, children, cost } = this.state;
+        const { step, children, cost, totalCost } = this.state;
         const { event } = this.props;
         switch(step) {
             case 1:
@@ -147,10 +186,17 @@ class Form extends Component {
                         event={event}
                     />
             case 2: 
-                return <Payment 
-                    
-                    />
-
+                return <StripeProvider apiKey="pk_test_Kor4FI1PUw3cD2oBm3zPX9AQ00tD5dewJv">
+                    <Elements>
+                        <CheckoutForm 
+                            totalCost={totalCost}
+                            values={children}
+                            event={event}
+                            nextStep={this.nextStep}
+                            prevStep={this.prevStep}
+                        />
+                    </Elements>
+                </StripeProvider>
         }
 
         return (
@@ -158,13 +204,13 @@ class Form extends Component {
                 <h2>how many children are attending?</h2>
                 <form className="formWrap">
                     {this.createUI()}
-                   <button className="addChild" onClick={this.addClick}><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>
+                   <button className="addChild" onClick={this.addClick}><i class="fa fa-plus fa-2x" aria-hidden="true"></i>Add Child</button>
                 </form>
                 <div className="formDetails">
                     <div className="childrenCount"># of Children: <span className="underline">{children.length}</span></div>
                     <div className="childrenCost">Total Cost: <span className="underline">${children.length * cost}</span></div>
                 </div>
-                <button className="nextStep" onClick={this.nextStep}><i class="fa fa-chevron-right fa-10x" aria-hidden="true"></i></button>
+                <button className="nextStep" onClick={this.nextStep}><i class="fa fa-chevron-circle-right fa-5x" aria-hidden="true"></i></button>
             </div>
         );
     }
@@ -186,15 +232,12 @@ function Confirmation({ prevStep, nextStep, values }) {
             }
             </div>
             <div className="steps">
-                <button className="prevStep" onClick={prevStep}><i class="fa fa-chevron-left fa-10x" aria-hidden="true"></i></button>
-                <button className="nextStep" onClick={nextStep}><i class="fa fa-chevron-right fa-10x" aria-hidden="true"></i></button>
+                <button className="prevStep" onClick={prevStep}><i class="fa fa-chevron-circle-left fa-5x" aria-hidden="true"></i></button>
+                <button className="nextStep" onClick={nextStep}><i class="fa fa-chevron-circle-right fa-5x" aria-hidden="true"></i></button>
             </div>
         </div>
     );
 }
 
-function Payment() {
-    return <div>Testing this shit!!!</div>
-}
 const root = document.querySelector('#root');
 ReactDOM.render(<App />, root);

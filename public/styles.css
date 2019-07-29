@@ -1,12 +1,17 @@
 * {
     box-sizing: border-box;
     font-family: 'Electrolize', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 *:focus {
     outline: none;
 }
 
+a {
+    cursor: pointer;
+}
 :root {
     --primary-font-type: 'Electrolize', sans-serif;
     --secondary-font-type: 'Butcherman', cursive;
@@ -26,22 +31,49 @@ body {
 h2, h4 {
     text-transform: capitalize;
     padding: 25px 0;
+    text-align: center;
+    margin: 10px 0 0 0;
 }
 
 label {
-    padding: 10px 0;
+    display: inline-block;
+    padding: 15px 0;
     font-size: 18px;
 }
 
-input[type="text"] {
-    height: 50px;
+input[type="text"], input[type="email"], input[type="tel"] {
+    height: 60px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
     width: 100%;
-    font-size: 22px;
+    font-size: 18px;
     text-align: center;
-    color: black;
-    border-radius: 3px;
-    border: none;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
 }
+
+input[type="text"]--focus, input[type="email"]--focus, input[type="tel"]--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+input[type="text"]--invalid, input[type="email"]--invalid, input[type="tel"]--invalid {
+    border-color: #fa755a;
+}
+
+input[type="text"]--webkit-autofill, input[type="email"]--webkit-autofill, input[type="tel"]--webkit-autofill {
+ background-color: #fefde5 !important;
+}
+
+.finalCost {
+    font-size: 24px;
+    align-self: flex-end;
+    width: 100%;
+    text-align: right;
+}
+
 .fas {
     padding: 10px 0 0 0;
 }
@@ -60,15 +92,15 @@ button {
     cursor: pointer;
     margin: 0;
     padding: 0;
+    border-style: none;
+    outline: none;
+}
+button:hover {
+    transform: translateY(-1px);
+    /* box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1),
+    0 3px 6px rgba(0, 0, 0, 0.08); */
 }
 
-.primary {
-
-}
-
-.secondary {
-
-}
 
 .formWrapper {
     width: 100%;
@@ -108,7 +140,7 @@ button {
     height: auto;
     width: 100%;
     background: var(--primary-color);
-    opacity: 0.5;
+    opacity: 0.7;
     color: white;
     padding: 10px 0;
     align-self: flex-start;
@@ -160,6 +192,7 @@ button {
     margin-top: 10px;
     align-self: flex-end;
     padding-right: 10px;
+    font-size: 14px;
 }
 
 .addChild:hover > i {
@@ -169,8 +202,6 @@ button {
 .addChild > i { 
     color: purple;
     padding: 10px;
-    border-radius: 10px;
-    background-color: grey;
 }
 
 .removeChild {
@@ -200,48 +231,43 @@ button {
 
 .childrenCount {
     color:green;
+    width: 200px;
 }
 
 .childrenCost {
     color: green;
+    width: 200px;
 }
 
 .childrenCount > .underline {
-    text-decoration: underline;
+    
     color: black;
+    padding: 25px;
+    background-color: rgb(235, 228, 228);
 }
 
 .childrenCost > .underline {
-    text-decoration: underline;
     color: black;
+    padding: 25px;
+    background-color: rgb(235, 228, 228);
 }
 .nextStep {
-    background: var(--primary-color);
-    opacity: 0.5;
-    border-radius: 50%;
+    color: black;
     padding: 25px;
     margin: 25px 0;
 }
 
-.nextStep > i {
-    color: white;
-}
 .nextStep:hover > i {
     color: green;
 }
 
 .prevStep {
-    background: var(--primary-color);
-    opacity: 0.5;
-    border-radius: 50%;
+    color:black;
     padding: 25px;
     margin: 25px 0;
 }
 
-.prevStep > i {
-    color: white;
-}
-.prevStep:hover > i {
+.prevStep:hover {
     color: tomato;
 }
 
@@ -312,6 +338,151 @@ button {
     opacity: 0.5;
 }
 
+.fa-3x {
+    display: block;
+}
+
+.checkout {
+    margin: 25px auto 4vh auto;
+    width: 95%;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    max-width: 800px;
+    position: relative;
+    z-index: 5;
+    background-color:#fffcfc;
+    padding: 20px;
+    top: 0;
+    height: auto;
+
+}
+
+.ccContainer {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.StripeElement {
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color:white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    color: #32325d; 
+    font-size: 16px;
+}
+
+.StripeElement::placeholder {
+    color: #aab7c4;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+.purchaseContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomFlex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.purchaseButton {
+    background: var(--alternate-second-color);
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    height: 37px;
+    width: 100%;
+    color: #32325d; 
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2px;
+    flex: 1;
+    margin: 0 50px;
+}
+
+.purchaseButton:hover {
+    color: #fff;
+}
+
+.payNowButton {
+    background: var(--primary-color);
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    height: 37px;
+    width: 100%;
+    color: #32325d; 
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.payNowButton:hover {
+    color: #fff;
+}
+
+#card-errors {
+    padding: 10px 0;
+    color: #fa755a;
+    font-style: italic;
+    text-align: center;
+}
+
+.errorMessage {
+    padding: 10px;
+    color: darkred;
+    font-style: italic;
+    text-align: right;
+    font-size: 18px;
+    border: 1px solid tomato;
+    margin-top: 15px;
+    text-transform: lowercase;
+}
+
+.confirmationComplete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    width: 100%;
+    margin-bottom: 25px;
+    text-align: center;
+    word-spacing: 5px;
+    line-height: 2em;
+}
+
+.highlight {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+.empty {
+    display: none;
+}
 @media (min-width: 1000px) {
     .formWrap {
         flex-direction: row;
@@ -332,14 +503,12 @@ button {
         top: 26px;
         border-radius: 10px;
         z-index: 1001;
-    }
-    .addChild {
-        width: 100%;
+        cursor: pointer;
     }
     .confContainer {
         width: 50%;
     }
     .childContainer {
-        justify-content: flex-start;
+        justify-content: space-evenly;
     }
 }

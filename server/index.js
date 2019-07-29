@@ -7,7 +7,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
+
 const port = process.env.PORT || 3008;
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
+
 const db = require('./database/models');
 
 const init = async () => {
@@ -49,6 +53,24 @@ app.get('/getEventData', async (req, res) => {
         res.status(200).send(JSON.stringify(getData));
     } catch (err) {
         res.status(404).send(err);
+    }
+});
+
+app.post('/charge', bodyParser.text(), async (req, res) => {
+    const { totalCost, token } = JSON.parse(req.body);
+    const convertedCost = totalCost * 100;
+    
+    try {
+        let { status } = await stripe.charges.create({
+            amount: convertedCost,
+            currency: "usd",
+            description: "Standard Charge for Slime Class",
+            source: token,
+            statement_descriptor: 'Slime Time Class',
+        });
+        res.json({ status });
+    } catch (err) {
+        res.status(500).end();
     }
 });
 

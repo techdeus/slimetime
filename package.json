@@ -6,11 +6,12 @@
   "scripts": {
     "postinstall": "cp example.env .env && echo 'Add variables into .env file!'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/index.js --watch",
+    "start": "pm2 start server/index.js --watch -l /logs",
     "react-dev": "webpack -d --watch",
     "grunt": "grunt --verbose s3",
     "react-prod": "webpack -d --watch & grunt --verbose s3"
   },
+  "proxy": "http://localhost:3008",
   "author": "Marlon Sullivan",
   "license": "ISC",
   "dependencies": {
