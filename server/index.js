@@ -62,22 +62,25 @@ app.post('/charge', bodyParser.text(), async (req, res) => {
     const { totalCost, token, data } = JSON.parse(req.body);
     const convertedCost = totalCost * 100;
     
-    try {
-        let { status } = await stripe.charges.create({
-            amount: convertedCost,
-            currency: "usd",
-            description: "Standard Charge for Slime Class",
-            source: token,
-            statement_descriptor: 'Slime Time Class',
-        });
-
-        await email.sendEmails(data);
-        await sms.sendSMS(data);
-        res.json({ status });
-        
-    } catch (err) {
-        res.status(500).end();
-    }
+    await stripe.charges.create({
+        amount: convertedCost,
+        currency: "usd",
+        description: "Standard Charge for Slime Class",
+        source: token,
+        statement_descriptor: 'Slime Time Class',
+    })
+    .then(
+        async function(result) {
+            res.json({result});
+            await email.sendEmails(data);
+            await sms.sendSMS(data);
+        },
+        function(err) {
+            console.log(err.statusCode);
+            console.log(err.message);
+            res.status(err.statusCode).json({err});
+        }
+    );
 });
 
 app.use('/', express.static(path.join(__dirname, '../public')));
@@ -85,3 +88,21 @@ app.use('/', express.static(path.join(__dirname, '../public')));
 app.listen(port, () => {
     console.log(`The server is listening on Port ${port}`)
 });
+
+
+
+
+
+// Note: Node.js API does not throw exceptions, and instead prefers the
+// asynchronous style of error handling described below.
+//
+// An error from the Stripe API or an otheriwse asynchronous error
+// will be available as the first argument of any Stripe method's callback:
+// E.g. stripe.customers.create({...}, function(err, result) {});
+//
+// Or in the form of a rejected promise.
+// E.g. stripe.customers.create({...}).then(
+//        function(result) {},
+//        function(err) {}
+//      );
+

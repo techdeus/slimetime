@@ -48,12 +48,6 @@ async function sendEmails(data) {
     }
 };
 
-
-
-
-
-
-
 module.exports = {
     sendEmails,
 }

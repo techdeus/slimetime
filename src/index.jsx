@@ -99,7 +99,7 @@ class Form extends Component {
                 <label htmlFor="name">Child's Name</label>
                 <input id="name" name="name" type="text" placeholder="Enter name here..." value={el.name} onChange={this.handleChange.bind(this,i)} required />
                 <label htmlFor="age">Child's Age</label>
-                <input id="age" name="age" type="text" placeholder="Enter age here..." value={el.age} onChange={this.handleChange.bind(this,i)} required />
+                <input id="age" name="age" type="number" placeholder="Ages 1 - 18" value={el.age} onChange={this.handleChange.bind(this,i)} min="1" max="18" required />
                 { 
                     el.error.length > 0 ? <div className="errorMessage">{el.error}</div> : <div className="empty" />
                 }
@@ -163,9 +163,9 @@ class Form extends Component {
                 isValid = false;
                 this.setState({ children: currChildren });
                 return isValid;
-            } else if (el.age === '' || typeof parseInt(el.age) !== 'number') {
+            } else if (el.age === '' || parseInt(el.age) > 18 || parseInt(el.age) < 0) {
                 let currChildren = [...this.state.children];
-                currChildren[i] = {...currChildren[i], error: 'Error: Enter your child\'s Age (Using 0-9)'};
+                currChildren[i] = {...currChildren[i], error: 'Error: Enter your child\'s age between 1 - 18'};
                 isValid = false;
                 this.setState({ children: currChildren });
                 return isValid;

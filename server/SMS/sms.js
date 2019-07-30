@@ -10,8 +10,7 @@ function sendSMS(data) {
     const phoneNumber = convertPhone(data.phonenumber);
     // send to customer
     client.messages.create({
-        body: `Thank you for purchasing ${data.name}! Check your email, ${data.email} for more details. 
-        We will send you a reminder on the day of the event!`,
+        body: `Thank you for purchasing ${data.name}! Check your email, ${data.email} for more details. We will send you a reminder on the day of the event!`,
         to: phoneNumber,
         from: process.env.TWILIO_PHONE_NUMBER,
     })

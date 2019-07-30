@@ -14,6 +14,7 @@ class CheckoutFrom extends Component {
             isLoading: false,
             complete: false,
             stripeErrorMessage: '',
+            responseError: '',
             formError: '',
             formValid: false,
         };
@@ -35,6 +36,8 @@ class CheckoutFrom extends Component {
     handleCCChange({error}) {
         if (error) {
             this.setState({ stripeErrorMessage: error.message });
+        } else {
+            this.setState({ stripeErrorMessage: '' })
         }
     } 
     
@@ -49,6 +52,7 @@ class CheckoutFrom extends Component {
             });
         }
     }
+
     async submit(ev) {
         const { totalCost, event, values } = this.props;
         const { name, email, phone } = this.state;
@@ -77,16 +81,18 @@ class CheckoutFrom extends Component {
                             data: data,
                         },
                     });
-
-                    if (response.status === 200) {
-                        this.setState({
-                            isLoading: false,
-                            complete: true,
-                        });
-                    }
+                        if (response.status === 200) {
+                            this.setState({
+                                isLoading: false,
+                                complete: true,
+                            });
+                        }
                 }
         } catch (err) {
-            console.log(err);
+            this.setState({
+                isLoading: false,
+                responseError: err.message,
+            });
         }
             // let response = await fetch("/charge", {
             //     method: "POST",
@@ -126,7 +132,7 @@ class CheckoutFrom extends Component {
     }
 
     render() {
-        const { name, phone, email, complete, stripeErrorMessage, formError, isLoading, formValid } = this.state;
+        const { name, phone, email, complete, stripeErrorMessage, formError, isLoading, formValid, responseError } = this.state;
         const { prevStep, totalCost } = this.props;
         
         if (complete) return (
@@ -184,6 +190,7 @@ class CheckoutFrom extends Component {
                                 </div>
 
                                 <div id="card-errors" role="alert">{stripeErrorMessage}</div>
+                                <div>{responseError}</div>
                                 <div className="bottomFlex">
                                     <button className="prevStep" onClick={prevStep}><i class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i></button>
                                     <button className="purchaseButton" onClick={this.submit}>Submit Payment</button>
