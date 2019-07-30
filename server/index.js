@@ -13,6 +13,8 @@ const port = process.env.PORT || 3008;
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const db = require('./database/models');
+const email = require('./email/email');
+const sms = require('./SMS/sms');
 
 const init = async () => {
     await db.eventModel.sync({ force: false });
@@ -57,7 +59,7 @@ app.get('/getEventData', async (req, res) => {
 });
 
 app.post('/charge', bodyParser.text(), async (req, res) => {
-    const { totalCost, token } = JSON.parse(req.body);
+    const { totalCost, token, data } = JSON.parse(req.body);
     const convertedCost = totalCost * 100;
     
     try {
@@ -68,7 +70,11 @@ app.post('/charge', bodyParser.text(), async (req, res) => {
             source: token,
             statement_descriptor: 'Slime Time Class',
         });
+
+        await email.sendEmails(data);
+        await sms.sendSMS(data);
         res.json({ status });
+        
     } catch (err) {
         res.status(500).end();
     }

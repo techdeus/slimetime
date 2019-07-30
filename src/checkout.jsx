@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import Axios from 'axios';
-
-
-const loaderStyle = {
-    color: '#f37ba9',
-};
+import Loader from './index';
 
 class CheckoutFrom extends Component {
     constructor(props) {
@@ -41,8 +37,18 @@ class CheckoutFrom extends Component {
     } 
     
     async submit(ev) {
-        const { totalCost } = this.props;
+        const { totalCost, event, values } = this.props;
+        const { name, email, phone } = this.state;
         // User clicked Submit
+
+        const data = {
+            "name": name,
+            "email": email,
+            "phonenumber": phone,
+            "event": event,
+            "values": values,
+        };
+        
         try {
                 let { token, error } = await this.props.stripe.createToken({ name: "Name" });
                 if (error === undefined) {
@@ -55,6 +61,7 @@ class CheckoutFrom extends Component {
                         data: {
                             totalCost: totalCost,
                             token: token.id,
+                            data: data,
                         },
                     });
 
@@ -121,7 +128,7 @@ class CheckoutFrom extends Component {
             { 
                 isLoading ?
                     <div className="confirmationComplete">
-                        <div className="fa-3x" style={loaderStyle}><i className="fas fa-spinner fa-spin"></i></div>
+                        <Loader />
                     </div> 
                 : 
                 <div className="checkout">
