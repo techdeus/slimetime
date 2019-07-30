@@ -6,6 +6,7 @@ import Loader from './index';
 class CheckoutFrom extends Component {
     constructor(props) {
         super(props);
+        this.phoneNumber = React.createRef();
         this.state = {
             name: '',
             email: '',
@@ -21,6 +22,7 @@ class CheckoutFrom extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleCCChange = this.handleCCChange.bind(this);
         this.validateForm = this.validateForm.bind(this);
+        this.addHyphen = this.addHyphen.bind(this);
     }
 
     handleChange(e) {
@@ -36,6 +38,17 @@ class CheckoutFrom extends Component {
         }
     } 
     
+    addHyphen() {
+        let phoneInput = this.phoneNumber;
+        let finalValue = '';
+        phoneInput.current.value = phoneInput.current.value.replace(/\D[^\.]/g, "");
+        if (phoneInput.current.value.length >= 10) {
+            finalValue = phoneInput.current.value.slice(0, 3) + "-" + phoneInput.current.value.slice(3, 6) + "-" + phoneInput.current.value.slice(6);
+            this.setState({
+                phone: finalValue,
+            });
+        }
+    }
     async submit(ev) {
         const { totalCost, event, values } = this.props;
         const { name, email, phone } = this.state;
@@ -98,9 +111,9 @@ class CheckoutFrom extends Component {
                 formValid: false,
             });
             return;
-        } else if (phone.length < 10 && phone.length > 12 || phone.indexOf('-') < 0 || phone.indexOf('-') < 0 ) {
+        } else if (phone.length !== 12) {
             this.setState({
-                formError: 'Enter a Valid Phone Number i.e. 415-222-1100',
+                formError: 'Enter a Valid Phone Number: 4152221100',
                 formValid: false,
             });
             return;
@@ -146,10 +159,14 @@ class CheckoutFrom extends Component {
                         value={email} onChange={this.handleChange} required />
                     <label htmlFor="phone">Phone Number</label>
                         <input id="phone" name="phone" type="tel" 
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                            maxLength="12"
-                            placeholder="Enter phone number here... 123-456-7890" 
-                            value={phone} onChange={this.handleChange} required />
+                            // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            ref={this.phoneNumber}
+                            maxLength="10"
+                            placeholder="Enter phone number here... 1234567890" 
+                            value={phone} 
+                            onKeyUp={this.addHyphen}
+                            onChange={this.handleChange}
+                            required />
                 {
                     formError.length > 0 ? <div className="errorMessage">{formError}</div> : <div className="empty" />
                 }
