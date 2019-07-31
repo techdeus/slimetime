@@ -15,6 +15,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const db = require('./database/models');
 const email = require('./email/email');
 const sms = require('./SMS/sms');
+const addCustomer = require('./database/addCustomer');
 
 const init = async () => {
     await db.eventModel.sync({ force: false });
@@ -74,6 +75,7 @@ app.post('/charge', bodyParser.text(), async (req, res) => {
             res.json({result});
             await email.sendEmails(data);
             await sms.sendSMS(data);
+            await addCustomer(data);
         },
         function(err) {
             console.log(err.statusCode);
