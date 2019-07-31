@@ -186,7 +186,7 @@ class Form extends Component {
                         event={event}
                     />
             case 2: 
-                return <StripeProvider apiKey="pk_test_Kor4FI1PUw3cD2oBm3zPX9AQ00tD5dewJv">
+                return <StripeProvider apiKey="pk_live_BrD7ijZfhKQdkjKZ4PSsEyoK00BGCZnLul">
                     <Elements>
                         <CheckoutForm 
                             totalCost={totalCost}
