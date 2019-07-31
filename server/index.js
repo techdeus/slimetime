@@ -10,7 +10,7 @@ const app = express();
 
 const port = process.env.PORT || 3008;
 
-const stripe = require('stripe')(process.env.STRIPE_TEST_SECRET);
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const db = require('./database/models');
 const email = require('./email/email');
