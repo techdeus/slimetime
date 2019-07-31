@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Electrolize', sans-serif;
+    font-family: 'Varela Round', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -13,7 +13,7 @@ a {
     cursor: pointer;
 }
 :root {
-    --primary-font-type: 'Electrolize', sans-serif;
+    --primary-font-type: 'Varela Round', sans-serif;
     --secondary-font-type: 'Butcherman', cursive;
     --primary-color: #a502e7;
     --secondary-color: #0fbae5;
@@ -149,7 +149,7 @@ button:hover {
 
 .bannerName {
     font-family: 'Butcherman', cursive;
-    font-size: 44px;
+    font-size: 3rem;
     font-weight: 600;
     text-transform: capitalize;
     text-align: center;
@@ -176,11 +176,11 @@ button:hover {
 
 .bannerCost {
     word-spacing: 5px;
-    padding: 10px 20px 10px;
-    width: 100%;
+    padding: 10px 20px;
     background-color: #0fbae5;
     text-align: center;
     color: black;
+    border-radius: 5px;
 }
 
 .bannerCost > span {
@@ -193,6 +193,10 @@ button:hover {
     align-self: flex-end;
     padding-right: 10px;
     font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-transform: capitalize;
 }
 
 .addChild:hover > i {
@@ -224,7 +228,7 @@ button:hover {
     align-items: center;
     background: #fff;
     width: 100%;
-    margin: 25px 0;
+    margin: 50px 0;
     font-size: 24px;
     opacity: 0.8;
 }
@@ -255,6 +259,7 @@ button:hover {
     color: black;
     padding: 25px;
     margin: 25px 0;
+    animation: blink 2s linear infinite;
 }
 
 .nextStep:hover > i {
@@ -511,4 +516,11 @@ button:hover {
     .childContainer {
         justify-content: space-evenly;
     }
+}
+
+@keyframes blink {
+    0%{color: #252525}
+    50%{color: var(--alternate-shade-color)}
+    75%{color: var(--alternate-color)}
+    100%{color: #252525}
 }

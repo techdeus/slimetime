@@ -10,7 +10,7 @@ const app = express();
 
 const port = process.env.PORT || 3008;
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET);
+const stripe = require('stripe')(process.env.STRIPE_TEST_SECRET);
 
 const db = require('./database/models');
 const email = require('./email/email');
@@ -90,21 +90,4 @@ app.use('/', express.static(path.join(__dirname, '../public')));
 app.listen(port, () => {
     console.log(`The server is listening on Port ${port}`)
 });
-
-
-
-
-
-// Note: Node.js API does not throw exceptions, and instead prefers the
-// asynchronous style of error handling described below.
-//
-// An error from the Stripe API or an otheriwse asynchronous error
-// will be available as the first argument of any Stripe method's callback:
-// E.g. stripe.customers.create({...}, function(err, result) {});
-//
-// Or in the form of a rejected promise.
-// E.g. stripe.customers.create({...}).then(
-//        function(result) {},
-//        function(err) {}
-//      );
 

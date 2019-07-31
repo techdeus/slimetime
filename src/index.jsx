@@ -204,7 +204,7 @@ class Form extends Component {
                 <h2>how many children are attending?</h2>
                 <form className="formWrap">
                     {this.createUI()}
-                   <button className="addChild" onClick={this.addClick}><i class="fa fa-plus fa-2x" aria-hidden="true"></i>Add Child</button>
+                   <button className="addChild" onClick={this.addClick}><i class="fa fa-plus fa-2x" aria-hidden="true"></i>add another child</button>
                 </form>
                 <div className="formDetails">
                     <div className="childrenCount"># of Children: <span className="underline">{children.length}</span></div>
