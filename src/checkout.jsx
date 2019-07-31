@@ -67,7 +67,7 @@ class CheckoutFrom extends Component {
         };
         
         try {
-                let { token, error } = await this.props.stripe.createToken({ name: "Name" });
+                let { token, error } = await this.props.stripe.createToken({ name: name });
                 if (error === undefined) {
                     let isSubmitted = await this.setState({ isLoading: true });
                     Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
